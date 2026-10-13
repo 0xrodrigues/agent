@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(./project/**)",
+      "Grep",
+      "Glob",
+      "Bash(rg:*)",
+      "Bash(ls:*)",
+      "Bash(wc:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git branch --show-current)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)"
+    ],
+    "deny": [
+      "Read(./project/**/.env*)",
+      "Read(./project/**/*secret*)",
+      "Read(./project/**/*credential*)"
+    ]
+  },
+  "hooks": {
+    "SubagentStart": [
+      {
+        "matcher": "service-researcher",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '{\"systemMessage\":\"service-researcher disparado (pesquisa read-only em project/)\"}'"
+          }
+        ]
+      }
+    ]
+  }
+}
